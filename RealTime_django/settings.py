@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
+    # lacal apps
+    'user',
+    'shop',
+    'booking',
 ]
 
 MIDDLEWARE = [
@@ -79,8 +83,13 @@ WSGI_APPLICATION = 'RealTime_django.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # mariadb setting
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'realtime',  # DB 이름
+        'USER': 'root',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
+        'PORT': '3306'
     }
 }
 
@@ -109,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
