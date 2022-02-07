@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from shop.models import Shop, Conv, Review
 
 

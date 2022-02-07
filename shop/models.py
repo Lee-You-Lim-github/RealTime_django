@@ -5,7 +5,7 @@ from user.models import User
 
 
 class Shop(models.Model):
-    shop_num = models.CharField(max_length=10, db_index=True, primary_key=True)
+    shop_num = models.CharField(max_length=10, db_index=True, unique=True)
     password = models.CharField(max_length=20)
     password2 = models.CharField(max_length=20)
     name = models.CharField(max_length=100, db_index=True)
@@ -24,7 +24,6 @@ class Shop(models.Model):
 
 
 class Conv(models.Model):
-    conv_num = models.AutoField(primary_key=True)
     parking = models.BooleanField(default=False)
     pet = models.BooleanField(default=False)
     wifi = models.BooleanField(default=False)
@@ -33,9 +32,8 @@ class Conv(models.Model):
 
 
 class Review(models.Model):
-    review_num = models.AutoField(primary_key=True)
     rating = models.IntegerField(default=5)
     content = models.CharField(max_length=150)
     created_at = models.DateTimeField(auto_now_add=True)
-    id = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     shop_num = models.ForeignKey(Shop, on_delete=models.CASCADE)
