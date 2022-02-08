@@ -19,7 +19,7 @@ class Shop(models.Model):
     table_count = models.IntegerField(default=0)
     notice = models.TextField(blank=True)
     intro = models.TextField(blank=True)
-    photo = models.ImageField(blank=True)
+    photo = models.ImageField(blank=True, upload_to='media/%Y/%m/%d')
     registered_date = models.DateTimeField(auto_now_add=True)
 
 
