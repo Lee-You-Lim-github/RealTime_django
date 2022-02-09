@@ -111,7 +111,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# AUTH_USER_MODEL = "user.User"
+AUTH_USER_MODEL = 'accounts.User'
+
+SIMPLE_JWT = {
+    'USER_ID_FIELD': 'user_id',
+}
 
 
 # Internationalization
