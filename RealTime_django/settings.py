@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # lacal apps
     'accounts',
     'shop',
+    'booking',
 ]
 
 MIDDLEWARE = [
