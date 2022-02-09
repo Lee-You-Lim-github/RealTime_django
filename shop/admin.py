@@ -1,3 +1,17 @@
 from django.contrib import admin
+from shop.models import Shop, Conv, Review
 
-# Register your models here.
+
+@admin.register(Shop)
+class ShopAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Conv)
+class ConvAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    pass
