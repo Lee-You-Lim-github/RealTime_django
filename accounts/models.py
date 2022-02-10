@@ -48,9 +48,10 @@ class User(AbstractUser):
         MinLengthValidator(3),
         RegexValidator(regex='^[a-zA-Z0-9]*$', message="영문/숫자를 혼합하여 입력해주세요"),
     ], )
-    username = models.CharField(max_length=60, db_index=True)
+    username = models.CharField(max_length=60, db_index=True, validators=[
+        RegexValidator(regex='^[ㄱ-힣]*$', message="한글만 입력해주세요"),
+    ], )
     nickname = models.CharField(max_length=15, unique=True, validators=[
-        MinLengthValidator(3),
         RegexValidator(regex='^[ㄱ-힣]*$', message="한글만 입력해주세요"),
     ])
     telephone = models.CharField(max_length=12, validators=[
