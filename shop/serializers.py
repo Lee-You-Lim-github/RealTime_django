@@ -5,7 +5,7 @@ from shop.models import Shop, Conv, Review
 class ConvSerializer(serializers.ModelSerializer):
     class Meta:
         model = Conv
-        fields = "__all__"
+        fields = ["parking", "pet", "wifi", "pack"]
 
 
 class ReviewSerializer(serializers.ModelSerializer):
@@ -35,14 +35,14 @@ class ShopSerializer(serializers.ModelSerializer):
             "intro",
             "photo",
             "registered_date",
-            "user_id",
+            "user_id_id",
         ]
 
     def create(self, validated_data):
-        tracks_data = validated_data.pop('tracks')
+        shop_convs_data = validated_data.pop('shop_convs')
         shop_id = Shop.objects.create(**validated_data)
-        for track_data in tracks_data:
-            Conv.objects.create(album=shop_id, **track_data)
+        for shop_conv_data in shop_convs_data:
+            Conv.objects.create(album=shop_id, **shop_conv_data)
         return shop_id
 
 
