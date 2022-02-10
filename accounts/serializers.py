@@ -51,7 +51,7 @@ class TokenObtainPairSerializer(OriginTokenObtainPairSerializer):
         data: Dict = super().validate(attrs)
         data["user_id"] = self.user.user_id
         data["authority"] = self.user.authority
-
+        data["is_superuser"] = self.user.is_superuser
         return data
 
 
