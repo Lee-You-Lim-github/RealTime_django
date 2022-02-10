@@ -148,10 +148,16 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ]
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        # djangorestframework-simplejwt
+        # https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html#installation
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
+    # 디폴트 만료 시간 : 5분
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=7),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 2,
 }
 
 CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
