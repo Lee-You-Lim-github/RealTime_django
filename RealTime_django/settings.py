@@ -115,9 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = 'accounts.User'
 
-SIMPLE_JWT = {
-    'USER_ID_FIELD': 'user_id',
-}
 
 
 # Internationalization
@@ -147,6 +144,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
+
+# djangorestframwork
+# DRF의 디폴트 설정을 재정의합니다.
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         # djangorestframework-simplejwt
@@ -154,10 +155,14 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
-    # 디폴트 만료 시간 : 5분
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=7),
+
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 2,
 }
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
+SIMPLE_JWT = {
+    'USER_ID_FIELD': 'user_id',
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=7),
+}
+
+
