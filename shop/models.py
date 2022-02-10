@@ -29,7 +29,7 @@ class Conv(models.Model):
     pet = models.BooleanField(default=False)
     wifi = models.BooleanField(default=False)
     pack = models.BooleanField(default=False)
-    shop_num = models.ForeignKey(Shop, on_delete=models.CASCADE)
+    shop_id = models.ForeignKey(Shop, related_name='shop_convs', on_delete=models.CASCADE)
 
 
 class Review(models.Model):
@@ -37,4 +37,4 @@ class Review(models.Model):
     content = models.CharField(max_length=150)
     created_at = models.DateTimeField(auto_now_add=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    shop_num = models.ForeignKey(Shop, on_delete=models.CASCADE)
+    shop_id = models.ForeignKey(Shop, on_delete=models.CASCADE)
