@@ -28,7 +28,7 @@ class UserCreationSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         if attrs["password"] != attrs["password2"]:
-            raise serializers.ValidationError("Difference between passwords")
+            raise serializers.ValidationError("동일한 암호를 지정해주세요.")
         return attrs
 
     def create(self, validated_data):
