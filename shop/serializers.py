@@ -5,8 +5,7 @@ from shop.models import Shop, Conv, Review
 class ShopSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shop
-        fields = ["id", "shop_num", "name", "category", "address", "telephone", "opening_hours", "now_table_count",
-                  "total_table_count", "notice", "intro", "photo", "registered_date"]
+        fields = "__all__"
 
 
 class ConvSerializer(serializers.ModelSerializer):
