@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
-from shop.models import Shop, Conv, Review
-from shop.serializers import ShopSerializer, ConvSerializer, ReviewSerializer
+from shop.models import Shop, Review
+from shop.serializers import ShopSerializer, ReviewSerializer
 
 
 class ShopViewSet(ModelViewSet):
@@ -24,14 +24,6 @@ class ShopViewSet(ModelViewSet):
     #
     #     return qs
 
-class ConvViewSet(ModelViewSet):
-    queryset = Conv.objects.all()
-    serializer_class = ConvSerializer
-
-    def get_permissions(self):
-        if self.request.method == "GET":
-            return [AllowAny()]
-        return [IsAuthenticated()]
 
 class ReviewViewSet(ModelViewSet):
     queryset = Review.objects.all()

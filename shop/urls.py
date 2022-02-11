@@ -7,7 +7,6 @@ app_name = "shop"
 
 router = DefaultRouter()
 router.register("shops", views.ShopViewSet)
-router.register("convs", views.ConvViewSet)
 router.register("reviews", views.ReviewViewSet)
 
 urlpatterns = [

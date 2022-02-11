@@ -20,19 +20,15 @@ class Shop(models.Model):
     opening_hours = models.TextField(blank=True)
     now_table_count = models.IntegerField(default=0)
     total_table_count = models.IntegerField(default=0)
+    conv_parking = models.BooleanField(default=False)
+    conv_pet = models.BooleanField(default=False)
+    conv_wifi = models.BooleanField(default=False)
+    conv_pack = models.BooleanField(default=False)
     notice = models.TextField(blank=True)
     intro = models.TextField(blank=True)
     photo = models.ImageField(blank=True, upload_to='media/%Y/%m/%d')
     registered_date = models.DateTimeField(auto_now_add=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-
-
-class Conv(models.Model):
-    parking = models.BooleanField(default=False)
-    pet = models.BooleanField(default=False)
-    wifi = models.BooleanField(default=False)
-    pack = models.BooleanField(default=False)
-    shop_id = models.ForeignKey(Shop, related_name='shop_convs', on_delete=models.CASCADE, null=True, blank=True)
 
 
 class Review(models.Model):
