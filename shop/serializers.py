@@ -42,7 +42,7 @@ class ShopSerializer(serializers.ModelSerializer):
         shop_convs_data = validated_data.pop('shop_convs')
         shop_id = Shop.objects.create(**validated_data)
         for shop_conv_data in shop_convs_data:
-            Conv.objects.create(album=shop_id, **shop_conv_data)
+            Conv.objects.create(shop_id=shop_id, **shop_conv_data)
         return shop_id
 
 
