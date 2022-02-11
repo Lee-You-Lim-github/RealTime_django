@@ -1,10 +1,11 @@
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, MinLengthValidator
 from django.db import models
 
 from accounts.models import User
 
 class Shop(models.Model):
     shop_num = models.CharField(max_length=10, db_index=True, unique=True, validators=[
+        MinLengthValidator(10),
         RegexValidator(regex='^[0-9]*$', message="숫자만 입력해주세요"),
     ],)
     name = models.CharField(max_length=100, db_index=True)
