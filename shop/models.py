@@ -11,8 +11,8 @@ class Shop(models.Model):
     name = models.CharField(max_length=100, db_index=True)
     category = models.CharField(max_length=100, db_index=True)
     address = models.CharField(max_length=300)
-    lat = models.DecimalField(max_digits=8, decimal_places=5, default=0)
-    long = models.DecimalField(max_digits=7, decimal_places=5, default=0)
+    lat = models.DecimalField(max_digits=7, decimal_places=5, default=0)
+    long = models.DecimalField(max_digits=8, decimal_places=5, default=0)
     telephone = models.CharField(max_length=12,  validators=[
              RegexValidator(r"^\d{3,4}\d{3,4}\d{4}$",
                             message="전화번호를 입력해 주세요."),
