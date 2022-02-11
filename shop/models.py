@@ -32,7 +32,7 @@ class Conv(models.Model):
     pet = models.BooleanField(default=False)
     wifi = models.BooleanField(default=False)
     pack = models.BooleanField(default=False)
-    shop_id = models.ForeignKey(Shop, related_name='shop_convs', on_delete=models.CASCADE)
+    shop_id = models.ForeignKey(Shop, related_name='shop_convs', on_delete=models.CASCADE, null=True, blank=True)
 
 
 class Review(models.Model):
