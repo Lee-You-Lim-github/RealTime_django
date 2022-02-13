@@ -6,7 +6,8 @@ from booking import views
 app_name = "booking"
 
 router = DefaultRouter()
-router.register("bookings", views.BookingViewSet)
+router.register("newbooking", views.BookingCreateViewSet)
+router.register("bookings", views.BookingReadViewSet)
 
 
 urlpatterns = [
