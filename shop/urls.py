@@ -6,9 +6,11 @@ from shop import views
 app_name = "shop"
 
 router = DefaultRouter()
-router.register("shops", views.ShopViewSet)
+router.register("newshop", views.ShopCreateViewSet)
+router.register("shops", views.ShopReadViewSet)
 router.register("reviews", views.ReviewViewSet)
 
 urlpatterns = [
-    path("api/",include(router.urls)),
+    path("api/", include(router.urls)),
+
 ]
