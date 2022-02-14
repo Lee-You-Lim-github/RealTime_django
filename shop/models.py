@@ -1,4 +1,4 @@
-from django.core.validators import RegexValidator, MinLengthValidator
+from django.core.validators import RegexValidator, MinLengthValidator, MaxValueValidator
 from django.db import models
 
 from accounts.models import User
@@ -32,7 +32,9 @@ class Shop(models.Model):
 
 
 class Review(models.Model):
-    rating = models.IntegerField(default=5)
+    rating = models.PositiveSmallIntegerField(
+        validators=[MaxValueValidator(5)],
+        default=5)
     content = models.CharField(max_length=150)
     created_at = models.DateTimeField(auto_now_add=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
