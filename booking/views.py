@@ -3,7 +3,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from booking.models import Booking
-from booking.serializers import BookingCreateSerializer, BookingReadserializer
+from booking.serializers import BookingCreateSerializer, BookingReadSerializer
 
 
 class BookingCreateViewSet(ModelViewSet):
