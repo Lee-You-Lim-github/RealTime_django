@@ -3,7 +3,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from booking.models import Booking
-from booking.serializers import BookingCreateSerializer, BookingReadserializer
+from booking.serializers import BookingCreateSerializer, BookingReadSerializer
 
 
 class BookingCreateViewSet(ModelViewSet):
@@ -24,7 +24,7 @@ class BookingReadViewSet(ModelViewSet):
         if method == 'PUT' or method == 'POST' or method == 'PATCH':
             return BookingCreateSerializer
         else:
-            return BookingReadserializer
+            return BookingReadSerializer
 
     # def get_queryset(self):
     #     qs= super().get_queryset()
