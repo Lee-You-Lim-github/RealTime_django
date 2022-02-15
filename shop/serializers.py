@@ -1,4 +1,6 @@
 from rest_framework import serializers
+
+from booking.serializers import BookingReadSerializer
 from shop.models import Shop, Review
 
 
@@ -12,6 +14,8 @@ class ShopCreateSerializer(serializers.ModelSerializer):
 
 
 class ShopReadSerializer(serializers.ModelSerializer):
+    booking_set = BookingReadSerializer(many=True, read_only=True)
+
     class Meta:
         model = Shop
         fields = "__all__"

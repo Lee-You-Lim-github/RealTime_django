@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.db.models import Q
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
@@ -27,11 +27,12 @@ class BookingReadViewSet(ModelViewSet):
             return BookingReadSerializer
 
     # def get_queryset(self):
-    #     qs= super().get_queryset()
+    #     qs = super().get_queryset()
     #
-    #     query=self.request.query_params.get("query","")
+    #     query = self.request.query_params.get("query", "")
+    #     conditions = Q(username__icontains=query) | Q(telephone__icontains=query)
     #     if query:
-    #         qs=qs.filter(champion__icontains=query)
+    #         qs = qs.filter(conditions)
     #
     #     return qs
 
