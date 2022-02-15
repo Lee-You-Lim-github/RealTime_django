@@ -8,12 +8,18 @@ from rest_framework_simplejwt.serializers import (
     TokenRefreshSerializer as OriginTokenRefreshSerializer,
 )
 
+from booking.serializers import BookingReadSerializer
+
 User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
+    booking_set = BookingReadSerializer(many=True, read_only=True)
+
     class Meta:
         model = User
-        fields = ["id", "user_id", "username", "nickname", "telephone", "authority", "is_superuser", "shop_set"]
+        fields = ["id", "user_id", "username", "nickname", "telephone", "authority", "is_superuser", "shop_set", "booking_set"]
+
+        # def update(self, instance, validated_data):
 
 
 class UserCreationSerializer(serializers.ModelSerializer):
@@ -30,6 +36,8 @@ class UserCreationSerializer(serializers.ModelSerializer):
         if attrs["password"] != attrs["password2"]:
             raise serializers.ValidationError("동일한 암호를 지정해주세요.")
         return attrs
+
+
 
     def create(self, validated_data):
         user_id = validated_data["user_id"]
