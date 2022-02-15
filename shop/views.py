@@ -3,7 +3,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from shop.models import Shop, Review
-from shop.serializers import ShopCreateSerializer, ReviewSerializer, ShopReadSerializer
+from shop.serializers import ShopCreateSerializer, ReviewCreateSerializer, ShopReadSerializer, ReviewReadSerializer
 
 
 class ShopCreateViewSet(ModelViewSet):
@@ -36,11 +36,23 @@ class ShopReadViewSet(ModelViewSet):
     #     return qs
 
 
-class ReviewViewSet(ModelViewSet):
+class ReviewCreateViewSet(ModelViewSet):
     queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
+    serializer_class = ReviewCreateSerializer
 
     def get_permissions(self):
         if self.request.method == "GET":
             return [AllowAny()]
         return [IsAuthenticated()]
+
+
+class ReviewReadViewSet(ModelViewSet):
+    queryset = Review.objects.all()
+
+    def get_serializer_class(self):
+        method = self.request.method
+        if method == 'PUT' or method == 'POST' or method == 'PATCH':
+            return ReviewCreateSerializer
+        else:
+            return ReviewReadSerializer
+

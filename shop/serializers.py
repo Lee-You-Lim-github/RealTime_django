@@ -18,11 +18,17 @@ class ShopReadSerializer(serializers.ModelSerializer):
         depth = 1
 
 
-class ReviewSerializer(serializers.ModelSerializer):
+class ReviewCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ["id", "rating", "content", "created_at", "user_id", "shop_id"]
+
+
+class ReviewReadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = "__all__"
-
+        depth = 1
 
 
 
