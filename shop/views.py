@@ -26,16 +26,6 @@ class ShopReadViewSet(ModelViewSet):
         else:
             return ShopReadSerializer
 
-    # def get_queryset(self):
-    #     qs= super().get_queryset()
-    #
-    #     query=self.request.query_params.get("query","")
-    #     if query:
-    #         qs=qs.filter(champion__icontains=query)
-    #
-    #     return qs
-
-
 class ReviewCreateViewSet(ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewCreateSerializer
