@@ -26,15 +26,15 @@ class BookingReadViewSet(ModelViewSet):
         else:
             return BookingReadSerializer
 
-    # def get_queryset(self):
-    #     qs = super().get_queryset()
-    #
-    #     query = self.request.query_params.get("query", "")
-    #     conditions = Q(username__icontains=query) | Q(telephone__icontains=query)
-    #     if query:
-    #         qs = qs.filter(conditions)
-    #
-    #     return qs
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        query = self.request.query_params.get("query", "")
+        conditions = Q(user_id__username__icontains=query) | Q(user_id__telephone__icontains=query)
+        if query:
+            qs = qs.filter(conditions)
+
+        return qs
 
 
 
