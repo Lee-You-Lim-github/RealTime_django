@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.db.models import Q
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
@@ -25,6 +25,18 @@ class ShopReadViewSet(ModelViewSet):
             return ShopCreateSerializer
         else:
             return ShopReadSerializer
+
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        query = self.request.query_params.get("query", "")
+        conditions = Q(name__icontains=query)
+        if query:
+            qs = qs.filter(conditions)
+
+        return qs
+
 
 class ReviewCreateViewSet(ModelViewSet):
     queryset = Review.objects.all()
