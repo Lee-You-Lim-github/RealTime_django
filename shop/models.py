@@ -18,6 +18,7 @@ class Shop(models.Model):
                             message="전화번호를 입력해 주세요."),
          ], help_text="입력 예) 0421112222")
     opening_hours = models.TextField(blank=True)
+    holiday = models.CharField(max_length=1, default="0")
     now_table_count = models.IntegerField(default=0)
     total_table_count = models.IntegerField(default=0)
     conv_parking = models.BooleanField(default=False)
