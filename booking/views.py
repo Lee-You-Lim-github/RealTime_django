@@ -32,7 +32,7 @@ class BookingReadViewSet(ModelViewSet):
         query = self.request.query_params.get("query", "")
         conditions = Q(user_id__username__icontains=query) | Q(user_id__telephone__icontains=query)
         if query:
-            qs = qs.filter(conditions)
+            qs = qs.filter(conditions | Q(shop_id__name__icontains=query))
 
         return qs
 
