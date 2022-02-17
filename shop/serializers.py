@@ -12,9 +12,16 @@ class ShopCreateSerializer(serializers.ModelSerializer):
             "total_table_count", "conv_parking", "conv_pet", "conv_wifi", "conv_pack", "notice", "intro", "photo", "registered_date", "user_id"
         ]
 
+class ReviewReadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = "__all__"
+        depth = 1
+
 
 class ShopReadSerializer(serializers.ModelSerializer):
     booking_set = BookingReadSerializer(many=True, read_only=True)
+    review_set = ReviewReadSerializer(many=True, read_only=True)
 
     class Meta:
         model = Shop
@@ -28,11 +35,7 @@ class ReviewCreateSerializer(serializers.ModelSerializer):
         fields = ["id", "rating", "content", "created_at", "user_id", "shop_id"]
 
 
-class ReviewReadSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Review
-        fields = "__all__"
-        depth = 1
+
 
 
 

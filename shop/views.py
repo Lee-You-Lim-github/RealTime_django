@@ -31,7 +31,7 @@ class ShopReadViewSet(ModelViewSet):
         qs = super().get_queryset()
 
         query = self.request.query_params.get("query", "")
-        conditions = Q(name__icontains=query)
+        conditions = Q(name__icontains=query) | Q(shop_num__icontains=query)
         if query:
             qs = qs.filter(conditions)
 
