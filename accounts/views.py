@@ -22,7 +22,7 @@ class UserViewSet(viewsets.ModelViewSet):
         query = self.request.query_params.get("query", "")
         conditions = Q(username__icontains=query) | Q(telephone__icontains=query)
         if query:
-            qs = qs.filter(conditions)
+            qs = qs.filter(conditions | Q(user_id__icontains=query))
 
         return qs
 
