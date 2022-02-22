@@ -3,12 +3,14 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from shop.models import Shop, Review
+from shop.paginations.ShopPagination import ShopPagination
 from shop.serializers import ShopCreateSerializer, ReviewCreateSerializer, ShopReadSerializer, ReviewReadSerializer
 
 
 class ShopCreateViewSet(ModelViewSet):
     queryset = Shop.objects.all()
     serializer_class = ShopCreateSerializer
+    pagination_class = ShopPagination
 
     def get_permissions(self):
         if self.request.method == "GET":

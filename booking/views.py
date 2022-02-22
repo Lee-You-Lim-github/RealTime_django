@@ -3,12 +3,14 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from booking.models import Booking
+from booking.paginations.BookPagination import BookPagination
 from booking.serializers import BookingCreateSerializer, BookingReadSerializer
 
 
 class BookingCreateViewSet(ModelViewSet):
     queryset = Booking.objects.all()
     serializer_class = BookingCreateSerializer
+
 
     def get_permissions(self):
         if self.request.method == "GET":
@@ -18,6 +20,7 @@ class BookingCreateViewSet(ModelViewSet):
 
 class BookingReadViewSet(ModelViewSet):
     queryset = Booking.objects.all()
+    pagination_class = BookPagination
 
     def get_serializer_class(self):
         method = self.request.method

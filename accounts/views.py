@@ -6,14 +6,19 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView as OriginTokenObtainPairView,
     TokenRefreshView as OriginTokenRefreshView,
 )
+
+from accounts.paginations.UserPagination import UserPagination
 from accounts.serializers import TokenObtainPairSerializer, UserCreationSerializer, UserSerializer
 from django.db.models import Q
 
+
 User = get_user_model()
+
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
-    serializer_class= UserSerializer
+    serializer_class = UserSerializer
+    pagination_class = UserPagination
     permission_classes = [AllowAny]   # DRF 디폴트 설정
 
     def get_queryset(self):
