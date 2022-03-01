@@ -52,6 +52,7 @@ class ReviewCreateViewSet(ModelViewSet):
 
 class ReviewReadViewSet(ModelViewSet):
     queryset = Review.objects.all()
+    pagination_class = ShopPagination
 
     def get_serializer_class(self):
         method = self.request.method
