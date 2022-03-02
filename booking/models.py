@@ -11,3 +11,6 @@ class Booking(models.Model):
     method = models.CharField(max_length=1)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     shop_id = models.ForeignKey(Shop, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['day']

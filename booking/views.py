@@ -1,4 +1,5 @@
 from django.db.models import Q
+from rest_framework import filters
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
@@ -21,6 +22,8 @@ class BookingCreateViewSet(ModelViewSet):
 class BookingReadViewSet(ModelViewSet):
     queryset = Booking.objects.all()
     pagination_class = BookPagination
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['day']
 
     def get_serializer_class(self):
         method = self.request.method
@@ -38,6 +41,8 @@ class BookingReadViewSet(ModelViewSet):
             qs = qs.filter(conditions | Q(shop_id__name__icontains=query))
 
         return qs
+
+
 
 
 
