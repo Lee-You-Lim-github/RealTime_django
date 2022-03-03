@@ -11,22 +11,29 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from environ import Env
 from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = Env()
+
+dot_env_path = BASE_DIR / ".env"
+if dot_env_path.exists():
+    with dot_env_path.open(encoding="utf-8") as f:
+        env.read_env(f, overwrite=True)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-noz%yvf2bygstom1cmfnwe*5ix+8m-($=^kxb+5l0wke#p%nwk'
+SECRET_KEY = env.str("SECRET_KEY", default="---- SECRET KEY ----")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 
 
 # Application definition
@@ -82,16 +89,22 @@ WSGI_APPLICATION = 'RealTime_django.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASE_URL 환경변수를 파싱하여 dict 객체를 생성해줍니다.
+try:
+    conn = env.db()
+except:
+   conn = {
+                'ENGINE': 'django.db.backends.mysql',  # mysqlclient librarly 설치
+                'NAME': 'realtime',
+                'USER': 'root',
+                'PASSWORD': '1234',  # mariaDB 설치 시 입력한 root 비밀번호 입력
+                'HOST': 'localhost',
+                'PORT': '3306'
+        }
+
+
 DATABASES = {
-    'default': {
-        # mariadb setting
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'realtime',  # DB 이름
-        'USER': 'root',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '3306'
-    }
+    'default': conn
 }
 
 
@@ -134,7 +147,7 @@ USE_L10N = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -144,7 +157,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
+CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS",
+                                default=["http://localhost:3000"])
+
+ACCESS_TOKEN_LIFETIME_DAYS=env.int("ACCESS_TOKEN_LIFETIME_DAYS",default=7)
+ACCESS_TOKEN_LIFETIME_HOURS=env.int("ACCESS_TOKEN_LIFETIME_HOURS",default=0)
+ACCESS_TOKEN_LIFETIME_MINUTES=env.int("ACCESS_TOKEN_LIFETIME_MINUTES",default=0)
 
 # djangorestframwork
 # DRF의 디폴트 설정을 재정의합니다.
@@ -155,12 +173,14 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
-    'COERCE_DECIMAL_TO_STRING': False,
 }
 
 SIMPLE_JWT = {
     'USER_ID_FIELD': 'user_id',
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=7),
+    'ACCESS_TOKEN_LIFETIME': timedelta(
+        days=ACCESS_TOKEN_LIFETIME_DAYS,
+        hours=ACCESS_TOKEN_LIFETIME_HOURS,
+        minutes=ACCESS_TOKEN_LIFETIME_MINUTES,),
 }
 
 
