@@ -10,7 +10,6 @@ from shop.serializers import ShopCreateSerializer, ReviewCreateSerializer, ShopR
 class ShopCreateViewSet(ModelViewSet):
     queryset = Shop.objects.all()
     serializer_class = ShopCreateSerializer
-    pagination_class = ShopPagination
 
     def get_permissions(self):
         if self.request.method == "GET":
@@ -20,6 +19,7 @@ class ShopCreateViewSet(ModelViewSet):
 
 class ShopReadViewSet(ModelViewSet):
     queryset = Shop.objects.all()
+    pagination_class = ShopPagination
 
     def get_serializer_class(self):
         method = self.request.method
