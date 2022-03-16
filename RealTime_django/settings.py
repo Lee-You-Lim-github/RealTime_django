@@ -50,8 +50,8 @@ INSTALLED_APPS = [
     'shop',
     'booking',
     'waiting',
-    # 'qna',
-    # 'review',
+    'qna',
+    'review',
 
 ]
 
