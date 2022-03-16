@@ -49,9 +49,10 @@ INSTALLED_APPS = [
     'accounts',
     'shop',
     'booking',
-    'review',
-    'qna',
     'waiting',
+    # 'qna',
+    # 'review',
+
 ]
 
 

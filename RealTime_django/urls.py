@@ -9,9 +9,9 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('shop/', include("shop.urls")),
     path('booking/', include("booking.urls")),
-    path('review/', include("review.urls")),
-    path('qna/', include("qna.urls")),
-    path('waiting/', include("waiting.urls"))
+    path('waiting/', include("waiting.urls")),
+    # path('qna/', include("qna.urls")),
+    # path('review/', include("review.urls")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,
