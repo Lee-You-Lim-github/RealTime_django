@@ -1,6 +1,5 @@
 from django.contrib import admin
-from shop.models import Shop, Review
-
+from shop.models import Shop
 
 @admin.register(Shop)
 class ShopAdmin(admin.ModelAdmin):
@@ -9,6 +8,3 @@ class ShopAdmin(admin.ModelAdmin):
 
 
 
-@admin.register(Review)
-class ReviewAdmin(admin.ModelAdmin):
-    pass
