@@ -5,21 +5,10 @@ from rest_framework.viewsets import ModelViewSet
 
 from booking.models import Booking
 from booking.paginations.BookPagination import BookPagination
-from booking.serializers import BookingCreateSerializer, BookingReadSerializer
+from booking.serializers import BookingCreateSerializer, BookingListSerializer
 
 
-class BookingCreateViewSet(ModelViewSet):
-    queryset = Booking.objects.all()
-    serializer_class = BookingCreateSerializer
-
-
-    def get_permissions(self):
-        if self.request.method == "GET":
-            return [AllowAny()]
-        return [IsAuthenticated()]
-
-
-class BookingReadViewSet(ModelViewSet):
+class BookingViewSet(ModelViewSet):
     queryset = Booking.objects.all()
     pagination_class = BookPagination
     filter_backends = [filters.OrderingFilter]
@@ -30,7 +19,7 @@ class BookingReadViewSet(ModelViewSet):
         if method == 'PUT' or method == 'POST' or method == 'PATCH':
             return BookingCreateSerializer
         else:
-            return BookingReadSerializer
+            return BookingListSerializer
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -42,7 +31,10 @@ class BookingReadViewSet(ModelViewSet):
 
         return qs
 
-
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [AllowAny()]
+        return [IsAuthenticated()]
 
 
 

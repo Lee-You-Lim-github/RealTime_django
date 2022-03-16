@@ -8,12 +8,12 @@ from rest_framework_simplejwt.serializers import (
     TokenRefreshSerializer as OriginTokenRefreshSerializer,
 )
 
-from booking.serializers import BookingReadSerializer
+from booking.serializers import BookingListSerializer
 
 User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
-    booking_set = BookingReadSerializer(many=True, read_only=True)
+    booking_set = BookingListSerializer(many=True, read_only=True)
 
     class Meta:
         model = User
