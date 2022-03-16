@@ -1,10 +1,9 @@
 from django.db.models import Q
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
-
-from shop.models import Shop, Review
-from shop.paginations.ShopPagination import ShopPagination, ReviewPagination
-from shop.serializers import ShopCreateSerializer, ReviewCreateSerializer, ShopReadSerializer, ReviewReadSerializer
+from shop.models import Shop
+from shop.paginations.ShopPagination import ShopPagination
+from shop.serializers import ShopCreateSerializer, ShopReadSerializer
 
 
 class ShopCreateViewSet(ModelViewSet):
@@ -28,7 +27,6 @@ class ShopReadViewSet(ModelViewSet):
         else:
             return ShopReadSerializer
 
-
     def get_queryset(self):
         qs = super().get_queryset()
 
@@ -39,35 +37,4 @@ class ShopReadViewSet(ModelViewSet):
 
         return qs
 
-
-class ReviewCreateViewSet(ModelViewSet):
-    queryset = Review.objects.all()
-    serializer_class = ReviewCreateSerializer
-
-    def get_permissions(self):
-        if self.request.method == "GET":
-            return [AllowAny()]
-        return [IsAuthenticated()]
-
-
-class ReviewReadViewSet(ModelViewSet):
-    queryset = Review.objects.all()
-    pagination_class = ReviewPagination
-
-    def get_queryset(self):
-        qs = super().get_queryset()
-
-        query = self.request.query_params.get("query", "")
-        conditions = Q(shop_id__name__icontains=query)
-        if query:
-            qs = qs.filter(conditions)
-
-        return qs
-
-    def get_serializer_class(self):
-        method = self.request.method
-        if method == 'PUT' or method == 'POST' or method == 'PATCH':
-            return ReviewCreateSerializer
-        else:
-            return ReviewReadSerializer
 

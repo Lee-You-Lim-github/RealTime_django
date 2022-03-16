@@ -8,8 +8,6 @@ app_name = "shop"
 router = DefaultRouter()
 router.register("newshop", views.ShopCreateViewSet)
 router.register("shops", views.ShopReadViewSet)
-router.register("newreview", views.ReviewCreateViewSet)
-router.register("reviews", views.ReviewReadViewSet)
 
 urlpatterns = [
     path("api/", include(router.urls)),
