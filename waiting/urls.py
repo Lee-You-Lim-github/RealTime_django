@@ -6,8 +6,7 @@ from waiting import views
 app_name = "waiting"
 
 router = DefaultRouter()
-router.register("newwaiting", views.WaitingCreateViewSet)
-router.register("waitings", views.WaitingReadViewSet)
+router.register("waitings", views.WaitingViewSet)
 
 
 urlpatterns = [

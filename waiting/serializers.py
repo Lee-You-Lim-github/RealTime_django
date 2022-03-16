@@ -8,7 +8,7 @@ class WaitingCreateSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class WaitingReadSerializer(serializers.ModelSerializer):
+class WaitingListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Waiting
         fields = "__all__"
