@@ -13,7 +13,7 @@ class ShopCreateSerializer(serializers.ModelSerializer):
         ]
 
 
-class ShopReadSerializer(serializers.ModelSerializer):
+class ShopListSerializer(serializers.ModelSerializer):
     booking_set = BookingReadSerializer(many=True, read_only=True)
     review_set = ReviewSerializer(many=True, read_only=True)
 

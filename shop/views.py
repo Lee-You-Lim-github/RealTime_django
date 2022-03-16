@@ -3,20 +3,10 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from shop.models import Shop
 from shop.paginations.ShopPagination import ShopPagination
-from shop.serializers import ShopCreateSerializer, ShopReadSerializer
+from shop.serializers import ShopCreateSerializer, ShopListSerializer
 
 
-class ShopCreateViewSet(ModelViewSet):
-    queryset = Shop.objects.all()
-    serializer_class = ShopCreateSerializer
-
-    def get_permissions(self):
-        if self.request.method == "GET":
-            return [AllowAny()]
-        return [IsAuthenticated()]
-
-
-class ShopReadViewSet(ModelViewSet):
+class ShopViewSet(ModelViewSet):
     queryset = Shop.objects.all()
     pagination_class = ShopPagination
 
@@ -25,7 +15,7 @@ class ShopReadViewSet(ModelViewSet):
         if method == 'PUT' or method == 'POST' or method == 'PATCH':
             return ShopCreateSerializer
         else:
-            return ShopReadSerializer
+            return ShopListSerializer
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -36,5 +26,10 @@ class ShopReadViewSet(ModelViewSet):
             qs = qs.filter(conditions)
 
         return qs
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [AllowAny()]
+        return [IsAuthenticated()]
 
 
