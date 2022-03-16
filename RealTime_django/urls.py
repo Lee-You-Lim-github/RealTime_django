@@ -10,6 +10,7 @@ urlpatterns = [
     path('shop/', include("shop.urls")),
     path('booking/', include("booking.urls")),
     path('waiting/', include("waiting.urls")),
+    path('user/', include("user.urls")),
     path('qna/', include("qna.urls")),
     path('review/', include("review.urls")),
 ]
