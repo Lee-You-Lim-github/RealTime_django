@@ -22,5 +22,5 @@ class Review(models.Model):
     kindness = models.CharField(max_length=20, choices=CHOICES)
     mood = models.CharField(max_length=20, choices=CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
-    book_id = models.ForeignKey(Booking, null=True, on_delete=models.CASCADE)
-    wait_id = models.ForeignKey(Waiting, null=True, on_delete=models.CASCADE)
+    book_id = models.ForeignKey(Booking, null=True, blank=True, on_delete=models.CASCADE)
+    wait_id = models.ForeignKey(Waiting, null=True, blank=True, on_delete=models.CASCADE)
