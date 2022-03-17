@@ -6,10 +6,8 @@ from user import views
 app_name = "user"
 
 router = DefaultRouter()
-router.register("newblack", views.BlackCreateViewSet)
-router.register("blacks", views.BlackReadViewSet)
-router.register("newpick", views.PickCreateViewSet)
-router.register("picks", views.PickReadViewSet)
+router.register("blacks", views.BlackViewSet)
+router.register("picks", views.PickViewSet)
 
 urlpatterns = [
     path("api/", include(router.urls)),
