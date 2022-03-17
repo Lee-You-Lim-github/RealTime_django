@@ -1,5 +1,6 @@
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from qna.models import Qna
 from qna.serializers import QnaSerializer, QnaCreateSerializer
 
@@ -31,3 +32,9 @@ class QnaViewSet(viewsets.ModelViewSet):
             return QnaCreateSerializer
         else:
             return QnaSerializer
+
+    # def get_permissions(self):
+    #     if self.request.method == "GET":
+    #         return [AllowAny()]
+    #     return [IsAuthenticated()]
+    #

@@ -1,6 +1,7 @@
 
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from review.models import Review
 from review.serializers import ReviewSerializer, ReviewCreateSerializer
 
@@ -22,6 +23,11 @@ class ReviewViewSet(viewsets.ModelViewSet):
             return ReviewCreateSerializer
         else:
             return ReviewSerializer
+
+    # def get_permissions(self):
+    #     if self.request.method == "GET":
+    #         return [AllowAny()]
+    #     return [IsAuthenticated()]
 
 
 
