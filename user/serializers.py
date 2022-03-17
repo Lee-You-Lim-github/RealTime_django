@@ -8,7 +8,7 @@ class BlackCreateSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class BlackReadSerializer(serializers.ModelSerializer):
+class BlackSerializer(serializers.ModelSerializer):
     class Meta:
         model = Black
         fields = "__all__"
@@ -21,7 +21,7 @@ class PickCreateSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class PickReadSerializer(serializers.ModelSerializer):
+class PickSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pick
         fields = "__all__"

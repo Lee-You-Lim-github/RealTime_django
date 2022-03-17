@@ -2,46 +2,38 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from user.models import Black, Pick
-from user.serializers import BlackCreateSerializer, PickCreateSerializer, BlackReadSerializer, PickReadSerializer
+from user.serializers import BlackCreateSerializer, PickCreateSerializer, BlackSerializer, PickSerializer
 
 
-class BlackCreateViewSet(ModelViewSet):
+class BlackViewSet(ModelViewSet):
     queryset = Black.objects.all()
-    serializer_class = BlackCreateSerializer
+    serializer_class = BlackSerializer
 
-    def get_permissions(self):
-        if self.request.method == "GET":
-            return [AllowAny()]
-        return [IsAuthenticated()]
-
-
-class BlackReadViewSet(ModelViewSet):
-    queryset = Black.objects.all()
+    # def get_permissions(self):
+    #     if self.request.method == "GET":
+    #         return [AllowAny()]
+    #     return [IsAuthenticated()]
 
     def get_serializer_class(self):
         method = self.request.method
         if method == "PUT" or method == "POST" or method == "PATCH":
             return BlackCreateSerializer
         else:
-            return BlackReadSerializer
+            return BlackSerializer
 
 
-class PickCreateViewSet(ModelViewSet):
+class PickViewSet(ModelViewSet):
     queryset = Pick.objects.all()
-    serializer_class = PickCreateSerializer
+    serializer_class = PickSerializer
 
-    def get_permissions(self):
-        if self.request.method == "GET":
-            return [AllowAny()]
-        return [IsAuthenticated()]
-
-
-class PickReadViewSet(ModelViewSet):
-    queryset = Pick.objects.all()
+    # def get_permissions(self):
+    #     if self.request.method == "GET":
+    #         return [AllowAny()]
+    #     return [IsAuthenticated()]
 
     def get_serializer_class(self):
         method = self.request.method
         if method == "PUT" or method == "POST" or method == "PATCH":
             return PickCreateSerializer
         else:
-            return PickReadSerializer
+            return PickSerializer
