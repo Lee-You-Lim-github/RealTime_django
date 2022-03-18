@@ -27,7 +27,9 @@ class Shop(models.Model):
     conv_pack = models.BooleanField(default=False)
     notice = models.TextField(blank=True)
     intro = models.TextField(blank=True)
-    photo = models.ImageField(blank=True, upload_to='media/%Y/%m/%d')
+    photo1 = models.ImageField(blank=True, upload_to='media/%Y/%m/%d')
+    photo2 = models.ImageField(blank=True, upload_to='media/%Y/%m/%d')
+    photo3 = models.ImageField(blank=True, upload_to='media/%Y/%m/%d')
     registered_date = models.DateTimeField(auto_now_add=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
