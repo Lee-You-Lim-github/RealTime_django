@@ -33,9 +33,14 @@ class ReviewViewSet(viewsets.ModelViewSet):
         qs = super().get_queryset()
 
         user_id = self.request.query_params.get("user_id", "")
-        conditions = Q(book_id__user_id__id=user_id) | Q(wait_id__user_id__id=user_id)
+        conditions = Q(book_id__user_id__id__exact=user_id) | Q(wait_id__user_id__id__exact=user_id)
         if user_id:
             qs = qs.filter(conditions)
+
+        shop_id = self.request.query_params.get("shop_id", "")
+        shop_id_conditions = Q(book_id__shop_id__id__exact=shop_id) | Q(wait_id__shop_id__id__exact=shop_id)
+        if shop_id:
+            qs = qs.filter(shop_id_conditions)
 
         return qs
 
