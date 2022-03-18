@@ -1,3 +1,4 @@
+from django.db.models import Q
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -23,6 +24,11 @@ class QnaViewSet(viewsets.ModelViewSet):
         query = self.request.query_params.get("query", "")
         if query:
             qs = qs.filter(title__icontains=query)
+
+        user_id = self.request.query_params.get("user_id", "")
+        user_id_conditions = Q(user_id__id__exact=user_id)
+        if user_id:
+            qs = qs.filter(user_id_conditions)
 
         return qs
 
