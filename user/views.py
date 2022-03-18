@@ -1,3 +1,4 @@
+from django.db.models import Q
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
@@ -37,3 +38,14 @@ class PickViewSet(ModelViewSet):
             return PickCreateSerializer
         else:
             return PickSerializer
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        user_id = self.request.query_params.get("user_id", "")
+        shop_id = self.request.query_params.get("shop_id", "")
+        conditions = Q(user_id_id__exact=user_id) & Q(shop_id_id__exact=shop_id)
+        if user_id and shop_id:
+            qs = qs.filter(conditions)
+
+        return qs
