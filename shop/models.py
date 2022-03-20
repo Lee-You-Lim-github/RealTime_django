@@ -27,6 +27,7 @@ class Shop(models.Model):
     conv_pack = models.BooleanField(default=False)
     notice = models.TextField(blank=True)
     intro = models.TextField(blank=True)
+    wait_state = models.CharField(max_length=1, default="0")
     photo1 = models.ImageField(blank=True, upload_to='media/%Y/%m/%d')
     photo2 = models.ImageField(blank=True, upload_to='media/%Y/%m/%d')
     photo3 = models.ImageField(blank=True, upload_to='media/%Y/%m/%d')
