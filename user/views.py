@@ -48,4 +48,8 @@ class PickViewSet(ModelViewSet):
         if user_id and shop_id:
             qs = qs.filter(conditions)
 
+        user_id_conditions = Q(user_id__id__exact=user_id)
+        if user_id:
+            qs = qs.filter(user_id_conditions)
+
         return qs
