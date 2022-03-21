@@ -7,10 +7,7 @@ from shop.models import Shop
 class ShopCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shop
-        fields = [
-            "id", "shop_num", "name", "category", "address", "lat", "longitude", "telephone", "opening_hours", "holiday", "now_table_count",
-            "total_table_count", "conv_parking", "conv_pet", "conv_wifi", "conv_pack", "notice", "intro", "photo", "registered_date", "user_id"
-        ]
+        fields = "__all__"
 
 
 class ShopListSerializer(serializers.ModelSerializer):
