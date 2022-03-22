@@ -12,10 +12,14 @@ class QnaPagination(PageNumberPagination):
     max_page_size = 1
 
 
+
 class QnaViewSet(viewsets.ModelViewSet):
     queryset = Qna.objects.all()
     serializer_class = QnaSerializer
     pagination_class = QnaPagination
+
+
+
 
 #제목으로 검색
     def get_queryset(self):
@@ -23,18 +27,23 @@ class QnaViewSet(viewsets.ModelViewSet):
 
         query = self.request.query_params.get("query", "")
         if query:
-            qs = qs.filter(title__icontains=query)
+            qs = qs.filter(qna_title__icontains=query)
 
         user_id = self.request.query_params.get("user_id", "")
         user_id_conditions = Q(user_id__id__exact=user_id)
         if user_id:
             qs = qs.filter(user_id_conditions)
 
+        authority = self.request.query_params.get("authority", "")
+        authority_conditions = Q(user_id__authority__exact=authority)
+        if authority:
+            qs = qs.filter(authority_conditions)
+
         return qs
 
     def get_serializer_class(self):
         method = self.request.method
-        if method == 'PUT' or method == 'POST':
+        if method == 'PUT' or method == 'POST' or method == 'PATCH':
             return QnaCreateSerializer
         else:
             return QnaSerializer
