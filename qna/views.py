@@ -27,7 +27,7 @@ class QnaViewSet(viewsets.ModelViewSet):
 
         query = self.request.query_params.get("query", "")
         if query:
-            qs = qs.filter(qna_title__icontains=query)
+            qs = qs.filter(title__icontains=query)
 
         user_id = self.request.query_params.get("user_id", "")
         user_id_conditions = Q(user_id__id__exact=user_id)
