@@ -25,14 +25,21 @@ class BookingViewSet(ModelViewSet):
         qs = super().get_queryset()
 
         user_id = self.request.query_params.get("user_id", "")
+        visit_status = self.request.query_params.get("visit_status", "")
         query = self.request.query_params.get("query", "")
+
         conditions = Q(user_id__username__icontains=query) | Q(user_id__telephone__icontains=query)
         if query:
             qs = qs.filter(conditions | Q(shop_id__name__icontains=query))
 
         user_id_conditions = Q(user_id__id__exact=user_id)
+        visit_status_conditions = Q(user_id__id__exact=user_id) & Q(visit_status__exact=visit_status)
+
         if user_id:
             qs = qs.filter(user_id_conditions)
+
+        if visit_status:
+            qs = qs.filter(visit_status_conditions)
 
         return qs
 
