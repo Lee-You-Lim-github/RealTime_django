@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from rest_framework import viewsets
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView as OriginTokenObtainPairView,
     TokenRefreshView as OriginTokenRefreshView,
@@ -10,7 +12,7 @@ from rest_framework_simplejwt.views import (
 from accounts.paginations.UserPagination import UserPagination
 from accounts.serializers import TokenObtainPairSerializer, UserCreationSerializer, UserSerializer
 from django.db.models import Q
-
+from accounts.naver_sms import send_sms
 
 User = get_user_model()
 
@@ -44,3 +46,16 @@ class TokenObtainPairView(OriginTokenObtainPairView):
 
 class TokenRefreshView(OriginTokenRefreshView):
     pass
+
+class NaverSmsApi(APIView):
+
+    def post(self, request):
+        data = request.data
+        message = data["content"]
+        phone_number = data["messages"][0]["to"]
+        send_sms(phone_number, message)
+        print(data)
+        print(message)
+        print(phone_number)
+
+        return Response(data)
