@@ -24,17 +24,19 @@ class BookingViewSet(ModelViewSet):
     def get_queryset(self):
         qs = super().get_queryset()
 
+        user_id = self.request.query_params.get("user_id", "")
         query = self.request.query_params.get("query", "")
         conditions = Q(user_id__username__icontains=query) | Q(user_id__telephone__icontains=query)
         if query:
             qs = qs.filter(conditions | Q(shop_id__name__icontains=query))
 
+        user_id_conditions = Q(user_id__id__exact=user_id)
+        if user_id:
+            qs = qs.filter(user_id_conditions)
+
         return qs
 
-    # def get_permissions(self):
-    #     if self.request.method == "GET":
-    #         return [AllowAny()]
-    #     return [IsAuthenticated()]
+
 
 
 
