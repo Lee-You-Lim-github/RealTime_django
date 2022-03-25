@@ -66,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'booking.middleware.TimezoneMiddleware',
 ]
 
 ROOT_URLCONF = 'RealTime_django.urls'
@@ -140,7 +141,7 @@ LANGUAGE_CODE = 'ko-kr'
 
 
 TIME_ZONE = 'Asia/Seoul'
-USE_TZ = False
+USE_TZ = True
 
 USE_I18N = True
 USE_L10N = True
