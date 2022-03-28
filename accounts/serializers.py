@@ -17,7 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["id", "user_id", "username", "nickname", "telephone", "authority", "date_joined", "is_superuser", "shop_set", "booking_set"]
+        fields = ["id", "user_id", "username", "nickname", "telephone", "authority", "date_joined", "is_superuser", "is_active", "shop_set", "booking_set"]
 
         # def update(self, instance, validated_data):
 
