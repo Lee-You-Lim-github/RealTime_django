@@ -23,3 +23,6 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     book_id = models.ForeignKey(Booking, null=True, blank=True, on_delete=models.CASCADE)
     wait_id = models.ForeignKey(Waiting, null=True, blank=True, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['-created_at']
