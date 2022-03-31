@@ -37,11 +37,13 @@ class WaitingViewSet(ModelViewSet):
         if user_id:
             qs = qs.filter(user_id_conditions)
 
+        wait_visit_status = self.request.query_params.get("wait_visit_status", "")
+        wait_visit_status_conditions = Q(wait_visit_status__exact=wait_visit_status)
+        if wait_visit_status:
+            qs = qs.filter(wait_visit_status_conditions)
+
         return qs
 
-    # def get_permissions(self):
-    #     if self.request.method == "GET":
-    #         return [AllowAny()]
-    #     return [IsAuthenticated()]
+
 
 
