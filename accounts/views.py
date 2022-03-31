@@ -27,11 +27,23 @@ class UserViewSet(viewsets.ModelViewSet):
         qs = super().get_queryset()
 
         query = self.request.query_params.get("query", "")
+        black = self.request.query_params.get("black", "")
+        id = self.request.query_params.get("id", "")
         conditions = Q(username__icontains=query) | Q(telephone__icontains=query)
+        id_conditions = Q(id__exact=id)
+        black_conditions = Q(black__isnull=False)
+
         if query:
             qs = qs.filter(conditions | Q(user_id__icontains=query))
 
+        if id:
+            qs = qs.filter(id_conditions)
+
+        if black:
+            qs = qs.filter(black_conditions)
+
         return qs
+
 
 
 class SignupAPIView(CreateAPIView):

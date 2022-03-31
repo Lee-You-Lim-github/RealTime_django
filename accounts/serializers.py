@@ -9,15 +9,17 @@ from rest_framework_simplejwt.serializers import (
 )
 
 from booking.serializers import BookingListSerializer
+from user.serializers import BlackSerializer
 
 User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
     booking_set = BookingListSerializer(many=True, read_only=True)
+    black_set = BlackSerializer(many=True, read_only=True)
 
     class Meta:
         model = User
-        fields = ["id", "user_id", "username", "nickname", "telephone", "authority", "date_joined", "is_superuser", "is_active", "shop_set", "booking_set"]
+        fields = ["id", "user_id", "username", "nickname", "telephone", "authority", "date_joined", "is_superuser", "is_active", "shop_set", "booking_set", "black_set"]
 
         # def update(self, instance, validated_data):
 
