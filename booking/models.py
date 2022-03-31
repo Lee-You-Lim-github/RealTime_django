@@ -34,18 +34,5 @@ class Booking(models.Model):
     #         raise ValidationError("지난 시간은 예약할 수 없습니다.")
     #     super(Booking, self).save(*args, **kwargs)
 
-    # class Meta:
-    #     ordering = ['day']
-    #
-    # def save(self, *args, **kwargs):
-    #
-    #     recent_booking = Booking.objects.filter(
-    #         user_id_id = self.black_set[0].user_id.id
-    #     )
-    #
-    #     if recent_booking:
-    #         self.book_table_count = recent_booking.book_table_count + 1
-    #     else:
-    #         self.book_table_count = 1
-    #
-    #     super(Booking, self).save(*args, **kwargs)
+    class Meta:
+        ordering = ['day']
