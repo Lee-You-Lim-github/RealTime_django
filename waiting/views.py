@@ -32,6 +32,11 @@ class WaitingViewSet(ModelViewSet):
         if shop_id:
             qs = qs.filter(shop_id_conditions)
 
+        user_id = self.request.query_params.get("user_id", "")
+        user_id_conditions = Q(user_id__id__exact=user_id)
+        if user_id:
+            qs = qs.filter(user_id_conditions)
+
         return qs
 
     # def get_permissions(self):
