@@ -1,3 +1,5 @@
+import datetime
+
 from rest_framework import serializers
 
 from accounts.models import User
@@ -36,9 +38,9 @@ class BookingCreateSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         visit_status = validated_data.get("visit_status")
-        day = validated_data.get("day")
-        print(day)
         black_list = Black.objects.filter(user_id__exact=instance.user_id)
+        day_7 = datetime.datetime.today() + datetime.timedelta(days=7)
+        day_30 = datetime.datetime.today() + datetime.timedelta(days=30)
 
         if visit_status == "2":
 
@@ -50,10 +52,23 @@ class BookingCreateSerializer(serializers.ModelSerializer):
                 black = Black.objects.create(book_id=instance, user_id=instance.user_id)
 
                 if black_list.count() != 1:
+
                     black.black_count = black_list.count()
                     account = User.objects.get(user_id=instance.user_id)
                     account.is_active = False
                     account.save()
+
+                    if black_list.count() == 2:
+                        black.end_date = day_7
+                        account = User.objects.get(user_id=instance.user_id)
+                        account.is_active = False
+                        account.save()
+
+                    if black_list.count() == 3:
+                        black.end_date = day_30
+                        account = User.objects.get(user_id=instance.user_id)
+                        account.is_active = False
+                        account.save()
 
                     if black_list.count() == 4:
                         account = User.objects.get(user_id=instance.user_id)
