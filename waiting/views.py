@@ -1,9 +1,12 @@
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+
+from shop.models import Shop
 from waiting.models import Waiting
 from waiting.serializers import WaitingCreateSerializer, WaitingListSerializer
 from django.db.models import Q
-from rest_framework import filters
+from rest_framework import filters, status
 from waiting.paginations.WaitingPagination import WaitingPagination
 
 class WaitingViewSet(ModelViewSet):
@@ -44,6 +47,25 @@ class WaitingViewSet(ModelViewSet):
 
         return qs
 
+    def create(self, request, *args, **kwargs):
+        #리액트에서 요청받은 데이터 중에 shop_id 가져오고
+        shop_id = request.data["shop_id"]
+        #shop_id가 shop의 pk인 id와 같고
+        shop = Shop.objects.get(id=shop_id)
+        #만약 그 shop의 wait_State가 1이면 400오류
+        if shop.wait_state == "1":
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        # waiting의 시리얼라이즈 참고해서
+        serializer = self.get_serializer(data=request.data)
+        #유효성검사해주고 저장
+        if serializer.is_valid():
+            serializer.save()
+        #유효성검사 통과못하면 에러    
+        else:
+            return Response(serializer.errors)
+        # 유효성검사랑 통과하면 저장된 데이터를 내보냄
+        return Response(serializer.data)
 
 
 
