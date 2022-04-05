@@ -6,15 +6,16 @@ from booking.models import Booking
 from shop.models import Shop
 
 
-now = timezone.now()
 
 
 def default_date():
+    now = timezone.now()
     return now + timedelta(days=1)
 
 
 def default_end_date():
-    return default_date() + timedelta(days=3)
+    now = timezone.now()
+    return now + timedelta(days=3)
 
 
 class Black(models.Model):
