@@ -36,6 +36,10 @@ class CustomUserManager(UserManager):
 
 
 class User(AbstractUser):
+    class AuthorityChoices(models.TextChoices):
+        PERSONAL = "0", "개인 회원"
+        BUSINESS = "1", "사업자 회원"
+
     USERNAME_FIELD = 'user_id'
     REQUIRED_FIELDS = []
 
@@ -58,7 +62,8 @@ class User(AbstractUser):
         RegexValidator(r"^\d{3}\d{4}\d{4}$",
                        message="전화번호를 입력해 주세요."),
     ], help_text="입력 예) 01011112222", db_index=True)
-    authority = models.CharField(max_length=1, default=0)
+    authority = models.CharField(max_length=1, default=AuthorityChoices.PERSONAL,
+                                 choices=AuthorityChoices.choices)
 
     objects = CustomUserManager()
 
