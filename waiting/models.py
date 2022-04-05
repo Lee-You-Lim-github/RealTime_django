@@ -33,10 +33,14 @@ class Waiting(models.Model):
     def is_cancel(self) -> bool:
         return self.wait_cancel == self.CancelChoices.CANCEL
 
+    @property
+    def is_wait_status(self):
+        return self.wait_visit_status == self.VisitStatusChoices.WAITING
+
     def save(self, *args, **kwargs):
         now = timezone.now()
 
-        if not self.is_cancel:
+        if not self.is_cancel and self.is_wait_status:
             recent_waiting = Waiting.objects.filter(
                 wait_date__date=now.date(),
                 shop_id=self.shop_id).order_by("-wait_date").first()
