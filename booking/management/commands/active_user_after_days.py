@@ -1,8 +1,5 @@
 import datetime
-
 from django.core.management import BaseCommand
-from django.db.models import F
-
 from accounts.models import User
 from user.models import Black
 
