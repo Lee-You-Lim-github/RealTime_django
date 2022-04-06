@@ -19,38 +19,44 @@ class Command(BaseCommand):
         )
 
         # end_date <= today인 경우만 조회
-        black_qs_today = Black.objects.all().filter(end_date__lte=datetime.datetime.today())
-
         # black_count가 1일때
-        black_count_1_qs = Black.objects.all().filter(black_count="1")
+        black_qs_today_count_1 = Black.objects.all().filter(
+            end_date__lte=datetime.datetime.today(),
+            black_count="1",
+        )
+        print("블랙1", black_qs_today_count_1)
 
         # black_count가 2일때
-        black_count_2_qs = Black.objects.all().filter(black_count="2")
+        black_qs_today_count_2 = Black.objects.all().filter(
+            end_date__lte=datetime.datetime.today(),
+            black_count="2",
+        )
+        print("블랙2", black_qs_today_count_2)
 
         # black_count가 3일때
-        black_count_3_qs = Black.objects.all().filter(black_count="3")
+        black_qs_today_count_3 = Black.objects.all().filter(
+            end_date__lte=datetime.datetime.today(),
+            black_count="3",
+        )
+        print("블랙3:", black_qs_today_count_3)
 
-        if black_qs_today and black_count_1_qs:
-            updated = user_qs.filter(black__in=black_qs_today).update(is_active=True)
+        if black_qs_today_count_3.exists():
+            updated = user_qs.filter(black__in=black_qs_today_count_3).update(is_active=True)
             print("updated", updated)
-            print("블랙1")
+            delete = black_qs_today_count_3.delete()
+            print("delete", delete)
 
-        elif black_qs_today and black_count_2_qs:
-            updated = user_qs.filter(black__in=black_qs_today and black_count_2_qs).update(is_active=True)
-            print("updated", updated)
-            print("블랙2")
+        elif black_qs_today_count_2.exists():
+            updated = user_qs.filter(black__in=black_qs_today_count_2).update(is_active=True)
+            print("블랙2: updated", updated)
+            delete = black_qs_today_count_2.delete()
+            print("블랙2: delete", delete)
+
+        elif black_qs_today_count_1.exists():
+            updated = user_qs.filter(black__in=black_qs_today_count_1).update(is_active=True)
+            print("블랙1: updated", updated)
+            delete = black_qs_today_count_1.delete()
+            print("블랙1: delete", delete)
 
         else:
-            print("실패")
-
-        # end_date-start_date의 차이가 2일 이상인 Black만 조회
-        # black_qs_6_days = Black.objects.all()\
-        #     .annotate(diff = F('end_date') - F('start_date'))\
-        #     .filter(diff__lte=datetime.timedelta(days=6)).exists()
-        #
-        # if black_qs:
-        #     updated = user_qs.filter(black__in=black_qs).update(is_active=True)
-        #     print("updated", updated)
-        #
-        # else:
-        #     print("실패")
+            print("블랙유저가 없습니다.")
