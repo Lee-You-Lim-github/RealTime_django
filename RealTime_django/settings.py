@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
+    'django_crontab',
     # lacal apps
     'accounts',
     'shop',
@@ -53,7 +54,6 @@ INSTALLED_APPS = [
     'user',
     'qna',
     'review',
-
 ]
 
 
@@ -191,3 +191,7 @@ SIMPLE_JWT = {
 NAVER_SERVICES_ID = env.str("NAVER_SERVICES_ID")
 NAVER_ACCESS_KEY_ID = env.str("NAVER_ACCESS_KEY_ID")
 NAVER_SECRET_KEY = env.str("NAVER_SECRET_KEY")
+
+CRONJOBS = [
+    ('* * * * *', 'booking.cron.my_scheduled_job')
+]
