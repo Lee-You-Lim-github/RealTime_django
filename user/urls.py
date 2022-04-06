@@ -7,6 +7,7 @@ app_name = "user"
 
 router = DefaultRouter()
 router.register("blacks", views.BlackViewSet)
+router.register("blackLogs", views.BlackLogViewSet)
 router.register("picks", views.PickViewSet)
 
 urlpatterns = [

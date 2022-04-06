@@ -1,9 +1,9 @@
 from django.db.models import Q
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
-
-from user.models import Black, Pick
-from user.serializers import BlackCreateSerializer, PickCreateSerializer, BlackSerializer, PickSerializer
+from user.models import Black, Pick, BlackLog
+from user.serializers import BlackCreateSerializer, PickCreateSerializer, BlackSerializer, PickSerializer, \
+    BlackLogSerializer, BlackLogCreateSerializer
 
 
 class BlackViewSet(ModelViewSet):
@@ -21,6 +21,23 @@ class BlackViewSet(ModelViewSet):
             return BlackCreateSerializer
         else:
             return BlackSerializer
+
+
+class BlackLogViewSet(ModelViewSet):
+    queryset = BlackLog.objects.all()
+    serializer_class = BlackLogSerializer
+
+    # def get_permissions(self):
+    #     if self.request.method == "GET":
+    #         return [AllowAny()]
+    #     return [IsAuthenticated()]
+
+    def get_serializer_class(self):
+        method = self.request.method
+        if method == "PUT" or method == "POST" or method == "PATCH":
+            return BlackLogCreateSerializer
+        else:
+            return BlackLogSerializer
 
 
 class PickViewSet(ModelViewSet):

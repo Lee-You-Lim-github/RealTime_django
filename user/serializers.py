@@ -1,10 +1,22 @@
 from rest_framework import serializers
-from user.models import Black, Pick
+from user.models import Black, Pick, BlackLog
 
 
 class BlackCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Black
+        fields = "__all__"
+
+
+class BlackLogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlackLog
+        fields = "__all__"
+
+
+class BlackLogCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlackLog
         fields = "__all__"
 
 
