@@ -5,7 +5,7 @@ from rest_framework import serializers
 from accounts.models import User
 from booking.models import Booking
 from review.serializers import ReviewSerializer
-from user.models import Black
+from user.models import Black, BlackLog
 from user.serializers import BlackSerializer
 
 
@@ -38,47 +38,47 @@ class BookingCreateSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         visit_status = validated_data.get("visit_status")
-        black_list = Black.objects.filter(user_id__exact=instance.user_id)
+        black_log_list = BlackLog.objects.filter(user_id__exact=instance.user_id)
         day_7 = datetime.datetime.today() + datetime.timedelta(days=7)
         day_30 = datetime.datetime.today() + datetime.timedelta(days=30)
 
         if visit_status == "2":
 
-            if black_list.count() >= 4:
+            if black_log_list.count() >= 4:
                 account = User.objects.get(user_id=instance.user_id)
                 account.is_active = False
                 account.save()
             else:
                 black = Black.objects.create(book_id=instance, user_id=instance.user_id)
 
-                if black_list.count() != 1:
+                # if black_log_list.count() != 0:
 
-                    black.black_count = black_list.count()
+                black.black_count = black_log_list.count() + 1
+                account = User.objects.get(user_id=instance.user_id)
+                account.is_active = False
+                account.save()
+
+                if black_log_list.count() == 1:
+                    black.end_date = day_7
                     account = User.objects.get(user_id=instance.user_id)
                     account.is_active = False
                     account.save()
 
-                    if black_list.count() == 2:
-                        black.end_date = day_7
-                        account = User.objects.get(user_id=instance.user_id)
-                        account.is_active = False
-                        account.save()
-
-                    if black_list.count() == 3:
-                        black.end_date = day_30
-                        account = User.objects.get(user_id=instance.user_id)
-                        account.is_active = False
-                        account.save()
-
-                    if black_list.count() == 4:
-                        account = User.objects.get(user_id=instance.user_id)
-                        account.is_active = False
-                        account.save()
-                else:
-                    black.black_count = 1
+                if black_log_list.count() == 2:
+                    black.end_date = day_30
                     account = User.objects.get(user_id=instance.user_id)
                     account.is_active = False
                     account.save()
+
+                if black_log_list.count() == 3:
+                    account = User.objects.get(user_id=instance.user_id)
+                    account.is_active = False
+                    account.save()
+                # else:
+                #     black.black_count = 1
+                #     account = User.objects.get(user_id=instance.user_id)
+                #     account.is_active = False
+                #     account.save()
 
                 black.save()
 
