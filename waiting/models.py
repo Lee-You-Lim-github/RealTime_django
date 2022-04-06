@@ -15,7 +15,7 @@ class Waiting(models.Model):
         CANCEL = "1", "취소됨"
 
     wait_count = models.IntegerField(default=1)
-    wait_date = models.DateTimeField(auto_now=True)
+    wait_date = models.DateTimeField(auto_now_add=True)
     wait_table_count = models.IntegerField(default=0)
     wait_visit_status = models.CharField(max_length=1,
                                          choices=VisitStatusChoices.choices,
