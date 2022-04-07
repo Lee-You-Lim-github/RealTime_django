@@ -193,5 +193,5 @@ NAVER_ACCESS_KEY_ID = env.str("NAVER_ACCESS_KEY_ID")
 NAVER_SECRET_KEY = env.str("NAVER_SECRET_KEY")
 
 CRONJOBS = [
-    ('* * * * *', 'booking.cron.my_scheduled_job')
+    ('* 0 * * *', 'booking.cron.my_scheduled_job')
 ]
