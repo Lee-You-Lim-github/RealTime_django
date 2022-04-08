@@ -21,9 +21,15 @@ class ShopViewSet(ModelViewSet):
         qs = super().get_queryset()
 
         query = self.request.query_params.get("query", "")
+        user_id = self.request.query_params.get("user_id", "")
         conditions = Q(name__icontains=query) | Q(shop_num__icontains=query)
+        user_id_conditions = Q(user_id__id__exact=user_id)
+
         if query:
             qs = qs.filter(conditions)
+
+        if user_id:
+            qs = qs.filter(user_id_conditions)
 
         return qs
 
