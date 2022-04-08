@@ -41,8 +41,13 @@ class WaitingViewSet(ModelViewSet):
             qs = qs.filter(user_id_conditions)
 
         wait_visit_status = self.request.query_params.get("wait_visit_status", "")
-        wait_visit_status_conditions = Q(wait_visit_status__exact=wait_visit_status)
-        if wait_visit_status:
+        wait_cancel = self.request.query_params.get("wait_cancel", "")
+        wait_visit_status_conditions = \
+            Q(wait_visit_status__exact=wait_visit_status) & \
+            Q(shop_id__id__exact=shop_id) & \
+            Q(wait_cancel__exact=wait_cancel)
+
+        if shop_id and wait_visit_status and wait_cancel:
             qs = qs.filter(wait_visit_status_conditions)
 
         return qs
