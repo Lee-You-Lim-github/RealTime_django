@@ -29,8 +29,10 @@ class UserViewSet(viewsets.ModelViewSet):
         query = self.request.query_params.get("query", "")
         black = self.request.query_params.get("black", "")
         id = self.request.query_params.get("id", "")
+        user_id = self.request.query_params.get("user_id", "")
         conditions = Q(username__icontains=query) | Q(telephone__icontains=query)
         id_conditions = Q(id__exact=id)
+        user_id_conditions = Q(user_id__exact=user_id)
         black_conditions = Q(black__isnull=False)
 
         if query:
@@ -38,6 +40,9 @@ class UserViewSet(viewsets.ModelViewSet):
 
         if id:
             qs = qs.filter(id_conditions)
+
+        if user_id:
+            qs = qs.filter(user_id_conditions)
 
         if black:
             qs = qs.filter(black_conditions)
