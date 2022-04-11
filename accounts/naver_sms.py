@@ -31,6 +31,7 @@ def send_sms(phone_number, message):
     "messages":[
         {
             "to": phone_number,
+            "content": message
         }
     ]
   }

@@ -68,11 +68,8 @@ class NaverSmsApi(APIView):
 
     def post(self, request):
         data = request.data
-        message = data["content"]
+        message = data["messages"][0]["content"]
         phone_number = data["messages"][0]["to"]
         send_sms(phone_number, message)
-        print(data)
-        print(message)
-        print(phone_number)
 
         return Response(data)
