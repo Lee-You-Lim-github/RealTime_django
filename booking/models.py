@@ -35,4 +35,5 @@ class Booking(models.Model):
     #     super(Booking, self).save(*args, **kwargs)
 
     class Meta:
-        ordering = ['day']
+        ordering = ['day', 'time']
+

@@ -12,7 +12,7 @@ class BookingViewSet(ModelViewSet):
     queryset = Booking.objects.all()
     pagination_class = BookPagination
     filter_backends = [filters.OrderingFilter]
-    ordering_fields = ['day']
+    ordering_fields = ['day', "time"]
 
     def get_serializer_class(self):
         method = self.request.method
