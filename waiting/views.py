@@ -9,6 +9,7 @@ from django.db.models import Q
 from rest_framework import filters, status
 from waiting.paginations.WaitingPagination import WaitingPagination
 
+
 class WaitingViewSet(ModelViewSet):
     queryset = Waiting.objects.all()
     filter_backends = [filters.OrderingFilter]
@@ -49,6 +50,10 @@ class WaitingViewSet(ModelViewSet):
 
         if shop_id and wait_visit_status and wait_cancel:
             qs = qs.filter(wait_visit_status_conditions)
+
+        visit_status_conditions = Q(wait_visit_status__exact=wait_visit_status)
+        if wait_visit_status:
+            qs = qs.filter(visit_status_conditions)
 
         return qs
 
