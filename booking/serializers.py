@@ -51,8 +51,6 @@ class BookingCreateSerializer(serializers.ModelSerializer):
             else:
                 black = Black.objects.create(book_id=instance, user_id=instance.user_id)
 
-                # if black_log_list.count() != 0:
-
                 black.black_count = black_log_list.count() + 1
                 account = User.objects.get(user_id=instance.user_id)
                 account.is_active = False
@@ -74,11 +72,6 @@ class BookingCreateSerializer(serializers.ModelSerializer):
                     account = User.objects.get(user_id=instance.user_id)
                     account.is_active = False
                     account.save()
-                # else:
-                #     black.black_count = 1
-                #     account = User.objects.get(user_id=instance.user_id)
-                #     account.is_active = False
-                #     account.save()
 
                 black.save()
 
