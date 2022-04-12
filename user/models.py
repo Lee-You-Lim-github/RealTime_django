@@ -23,6 +23,9 @@ class Black(models.Model):
     book_id = models.ForeignKey(Booking, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ['-black_count']
+
     def save(self, *args, **kwargs):
         super(Black, self).save(*args, **kwargs)
 
