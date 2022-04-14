@@ -59,7 +59,7 @@ class User(AbstractUser):
         RegexValidator(regex='^[ㄱ-힣]*$', message="한글만 입력해주세요"),
     ])
     telephone = models.CharField(max_length=12, validators=[
-        RegexValidator(r"^\d{2,4}\d{3,4}\d{4}$",
+        RegexValidator(r"^\d{3,4}\d{3,4}\d{4}$",
                        message="전화번호를 입력해 주세요."),
     ], help_text="입력 예) 01011112222", db_index=True)
     authority = models.CharField(max_length=1, default=AuthorityChoices.PERSONAL,
