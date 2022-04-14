@@ -33,6 +33,11 @@ class BookingViewSet(ModelViewSet):
         if query:
             qs = qs.filter(conditions | Q(shop_id__name__icontains=query))
 
+        day = self.request.query_params.get("day", "")
+        day_conditions = Q(day__exact=day)
+        if day:
+            qs = qs.filter(day_conditions)
+
         user_id_conditions = Q(user_id__id__exact=user_id)
         shop_id_conditions = Q(shop_id__id__exact=shop_id)
         visit_status_conditions = Q(user_id__id__exact=user_id) & Q(visit_status__exact=visit_status)
