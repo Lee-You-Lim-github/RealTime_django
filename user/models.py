@@ -43,6 +43,9 @@ class BlackLog(models.Model):
     book_id = models.ForeignKey(Booking, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ['-black_count']
+
 
 class Pick(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
