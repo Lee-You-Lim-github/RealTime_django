@@ -39,7 +39,7 @@ class UserViewSet(viewsets.ModelViewSet):
         conditions = Q(username__icontains=query) | Q(telephone__icontains=query)
         id_conditions = Q(id__exact=id)
         user_id_conditions = Q(user_id__exact=user_id)
-        black_conditions = Q(black__isnull=False)
+        black_conditions = Q(black__isnull=True)
 
         if query:
             qs = qs.filter(conditions | Q(user_id__icontains=query))
@@ -51,7 +51,7 @@ class UserViewSet(viewsets.ModelViewSet):
             qs = qs.filter(user_id_conditions)
 
         if black:
-            qs = qs.filter(black_conditions)
+            qs = qs.exclude(black_conditions)
 
         return qs
 
